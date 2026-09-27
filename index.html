@@ -1,0 +1,2093 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Cyber Learning Hub</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+:root{
+    --bg:#070707;
+    --card:#111111;
+    --text:#ffffff;
+    --muted:#aaaaaa;
+    --accent:#00ff88;
+    --border:#292929;
+    --wrong:#ff4545;
+}
+
+body.light{
+    --bg:#f3f3f3;
+    --card:#ffffff;
+    --text:#111111;
+    --muted:#555555;
+    --accent:#008f55;
+    --border:#dddddd;
+}
+
+body{
+    font-family:Arial,sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    line-height:1.6;
+    transition:.3s;
+}
+
+header{
+    text-align:center;
+    padding:25px 15px;
+    border-bottom:1px solid var(--border);
+    position:relative;
+}
+
+header h1{
+    color:var(--accent);
+    font-size:28px;
+}
+
+header p{
+    color:var(--muted);
+}
+
+#themeButton{
+    position:absolute;
+    right:15px;
+    top:15px;
+    width:45px;
+    height:45px;
+    border-radius:50%;
+    border:1px solid var(--border);
+    background:var(--card);
+    color:var(--text);
+    font-size:22px;
+}
+
+.hero{
+    text-align:center;
+    padding:35px 15px;
+}
+
+.hero h2{
+    color:var(--accent);
+    margin-bottom:8px;
+}
+
+.hero p{
+    color:var(--muted);
+}
+
+.container{
+    width:94%;
+    max-width:900px;
+    margin:auto;
+}
+
+/* SEARCH */
+
+.search-area{
+    background:var(--card);
+    border:1px solid var(--border);
+    padding:18px;
+    border-radius:12px;
+    margin-bottom:25px;
+}
+
+#searchBox{
+    width:100%;
+    padding:13px;
+    border-radius:8px;
+    border:1px solid var(--border);
+    background:var(--bg);
+    color:var(--text);
+    font-size:16px;
+    outline:none;
+}
+
+.filters{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    margin-top:12px;
+}
+
+.filter{
+    padding:8px 12px;
+    border-radius:20px;
+    border:1px solid var(--border);
+    background:var(--bg);
+    color:var(--text);
+    cursor:pointer;
+}
+
+.filter.active{
+    background:var(--accent);
+    color:#000;
+}
+
+/* PROGRESS */
+
+.progress-box{
+    margin-bottom:25px;
+}
+
+.progress-info{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:6px;
+    color:var(--muted);
+}
+
+.progress{
+    width:100%;
+    height:10px;
+    background:var(--border);
+    border-radius:10px;
+    overflow:hidden;
+}
+
+.progress-bar{
+    width:0%;
+    height:100%;
+    background:var(--accent);
+    transition:.4s;
+}
+
+/* STEPS */
+
+.section-title{
+    text-align:center;
+    margin:35px 0 20px;
+}
+
+.section-title h2{
+    color:var(--accent);
+}
+
+.step{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-left:4px solid var(--accent);
+    border-radius:12px;
+    padding:20px;
+    margin-bottom:16px;
+}
+
+.step-number{
+    color:var(--accent);
+    font-weight:bold;
+    font-size:14px;
+}
+
+.question{
+    font-size:18px;
+    font-weight:bold;
+    margin:7px 0;
+}
+
+.answer{
+    color:var(--muted);
+}
+
+.answer strong{
+    color:var(--accent);
+}
+
+.category{
+    display:inline-block;
+    margin-top:12px;
+    padding:4px 9px;
+    border-radius:15px;
+    background:rgba(0,255,136,.1);
+    color:var(--accent);
+    font-size:12px;
+}
+
+code{
+    background:#222;
+    color:#00ff88;
+    padding:2px 6px;
+    border-radius:4px;
+}
+
+/* MCQ */
+
+.mcq{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:20px;
+    margin-bottom:18px;
+}
+
+.mcq h3{
+    margin-bottom:12px;
+}
+
+.option{
+    width:100%;
+    text-align:left;
+    padding:11px;
+    margin:7px 0;
+    border-radius:8px;
+    border:1px solid var(--border);
+    background:var(--bg);
+    color:var(--text);
+    cursor:pointer;
+}
+
+.option:hover{
+    border-color:var(--accent);
+}
+
+.option.correct{
+    background:rgba(0,255,136,.15);
+    border-color:var(--accent);
+}
+
+.option.wrong{
+    background:rgba(255,69,69,.15);
+    border-color:var(--wrong);
+}
+
+.result{
+    margin-top:10px;
+    font-weight:bold;
+}
+
+.score-box{
+    text-align:center;
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:25px;
+    margin:25px 0;
+}
+
+#score{
+    font-size:30px;
+    color:var(--accent);
+    font-weight:bold;
+}
+
+.restart{
+    margin-top:15px;
+    padding:10px 20px;
+    border:0;
+    border-radius:8px;
+    background:var(--accent);
+    color:#000;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+footer{
+    margin-top:50px;
+    padding:30px 15px;
+    text-align:center;
+    border-top:1px solid var(--border);
+    color:var(--muted);
+}
+
+footer strong{
+    color:var(--accent);
+}
+
+.hidden{
+    display:none;
+}
+
+@media(max-width:600px){
+
+    header h1{
+        font-size:23px;
+        padding-right:40px;
+    }
+
+    .question{
+        font-size:17px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+
+<button id="themeButton" onclick="toggleTheme()">🌙</button>
+
+<h1>CYBER LEARNING HUB</h1>
+
+<p>Beginner to Advanced Cybersecurity Basics</p>
+
+</header>
+
+
+<section class="hero">
+
+<h2>🛡️ Learn Cybersecurity Safely</h2>
+
+<p>
+Computer • Linux • Networking • Kali Linux • Cybersecurity
+</p>
+
+</section>
+
+
+<main class="container">
+
+
+<!-- SEARCH -->
+
+<div class="search-area">
+
+<input
+type="text"
+id="searchBox"
+placeholder="🔎 Search questions..."
+onkeyup="searchSteps()"
+>
+
+<div class="filters">
+
+<button class="filter active" onclick="filterCategory('all',this)">
+All
+</button>
+
+<button class="filter" onclick="filterCategory('Computer',this)">
+Computer
+</button>
+
+<button class="filter" onclick="filterCategory('Linux',this)">
+Linux
+</button>
+
+<button class="filter" onclick="filterCategory('Networking',this)">
+Networking
+</button>
+
+<button class="filter" onclick="filterCategory('Security',this)">
+Security
+</button>
+
+</div>
+
+</div>
+
+
+<!-- PROGRESS -->
+
+<div class="progress-box">
+
+<div class="progress-info">
+
+<span>Learning Progress</span>
+
+<span id="progressText">0 / 100</span>
+
+</div>
+
+<div class="progress">
+
+<div class="progress-bar" id="progressBar"></div>
+
+</div>
+
+</div>
+
+
+<div class="section-title">
+
+<h2>📚 100 Learning Steps</h2>
+
+<p>Start from the basics and move gradually toward advanced concepts.</p>
+
+</div>
+
+
+<div id="stepsContainer">
+
+
+<!-- STEP 1 -->
+
+<div class="step" data-category="Computer">
+
+<div class="step-number">STEP 01</div>
+
+<div class="question">
+What is a computer?
+</div>
+
+<div class="answer">
+<strong>Answer:</strong>
+A computer is an electronic device that processes data,
+performs calculations and produces information.
+</div>
+
+<span class="category">Computer</span>
+
+</div>
+
+
+<!-- STEP 2 -->
+
+<div class="step" data-category="Computer">
+
+<div class="step-number">STEP 02</div>
+
+<div class="question">
+What is hardware?
+</div>
+
+<div class="answer">
+<strong>Answer:</strong>
+Hardware means the physical parts of a computer,
+such as CPU, RAM, keyboard, mouse and storage.
+</div>
+
+<span class="category">Computer</span>
+
+</div>
+
+
+<!-- STEP 3 -->
+
+<div class="step" data-category="Computer">
+
+<div class="step-number">STEP 03</div>
+
+<div class="question">
+What is software?
+</div>
+
+<div class="answer">
+<strong>Answer:</strong>
+Software is a collection of programs and instructions
+that tell a computer what to do.
+</div>
+
+<span class="category">Computer</span>
+
+</div>
+
+
+<!-- STEP 4 -->
+
+<div class="step" data-category="Computer">
+
+<div class="step-number">STEP 04</div>
+
+<div class="question">
+What is an operating system?
+</div>
+
+<div class="answer">
+<strong>Answer:</strong>
+An operating system manages computer hardware
+and provides an environment for applications.
+</div>
+
+<span class="category">Computer</span>
+
+</div>
+
+
+<!-- STEP 5 -->
+
+<div class="step" data-category="Linux">
+
+<div class="step-number">STEP 05</div>
+
+<div class="question">
+What is Linux?
+</div>
+
+<div class="answer">
+<strong>Answer:</strong>
+Linux is a family of open-source operating systems
+widely used on computers and servers.
+</div>
+
+<span class="category">Linux</span>
+
+</div>
+
+
+<!-- STEP 6 -->
+
+<div class="step" data-category="Linux">
+
+<div class="step-number">STEP 06</div>
+
+<div class="question">
+What is the Linux terminal?
+</div>
+
+<div class="answer">
+<strong>Answer:</strong>
+The terminal is a text-based interface used
+to interact with Linux using commands.
+</div>
+
+<span class="category">Linux</span>
+
+</div>
+
+
+<!-- STEP 7 -->
+
+<div class="step" data-category="Linux">
+
+<div class="step-number">STEP 07</div>
+
+<div class="question">
+What does pwd do?
+</div>
+
+<div class="answer">
+<strong>Answer:</strong>
+The <code>pwd</code> command displays
+the current working directory.
+</div>
+
+<span class="category">Linux</span>
+
+</div>
+
+
+<!-- STEP 8 -->
+
+<div class="step" data-category="Linux">
+
+<div class="step-number">STEP 08</div>
+
+<div class="question">
+What does ls do?
+</div>
+
+<div class="answer">
+<strong>Answer:</strong>
+The <code>ls</code> command displays files
+and directories.
+</div>
+
+<span class="category">Linux</span>
+
+</div>
+
+
+<!-- STEP 9 -->
+
+<div class="step" data-category="Linux">
+
+<div class="step-number">STEP 09</div>
+
+<div class="question">
+What does cd mean?
+</div>
+
+<div class="answer">
+<strong>Answer:</strong>
+<code>cd</code> means change directory.
+It is used to move between folders.
+</div>
+
+<span class="category">Linux</span>
+
+</div>
+
+
+<!-- STEP 10 -->
+
+<div class="step" data-category="Networking">
+
+<div class="step-number">STEP 10</div>
+
+<div class="question">
+What is networking?
+</div>
+
+<div class="answer">
+<strong>Answer:</strong>
+Networking is the process of connecting devices
+so they can communicate and share information.
+</div>
+
+<span class="category">Networking</span>
+
+</div>
+
+
+<!-- STEP 11 -->
+
+<div class="step" data-category="Networking">
+
+<div class="step-number">STEP 11</div>
+
+<div class="question">
+What is an IP address?
+</div>
+
+<div class="answer">
+<strong>Answer:</strong>
+An IP address identifies a device or network
+interface on an IP network.
+</div>
+
+<span class="category">Networking</span>
+
+</div>
+
+
+<!-- STEP 12 -->
+
+<div class="step" data-category="Networking">
+
+<div class="step-number">STEP 12</div>
+
+<div class="question">
+What is IPv4?
+</div>
+
+<div class="answer">
+<strong>Answer:</strong>
+IPv4 uses 32-bit addresses, commonly written
+like 192.168.1.1.
+</div>
+
+<span class="category">Networking</span>
+
+</div>
+
+
+<!-- STEP 13 -->
+
+<div class="step" data-category="Networking">
+
+<div class="step-number">STEP 13</div>
+
+<div class="question">
+What is IPv6?
+</div>
+
+<div class="answer">
+<strong>Answer:</strong>
+IPv6 uses 128-bit addresses and provides
+a much larger address space.
+</div>
+
+<span class="category">Networking</span>
+
+</div>
+
+
+<!-- STEP 14 -->
+
+<div class="step" data-category="Networking">
+
+<div class="step-number">STEP 14</div>
+
+<div class="question">
+What is a MAC address?
+</div>
+
+<div class="answer">
+<strong>Answer:</strong>
+A MAC address is a hardware-level identifier
+associated with a network interface.
+</div>
+
+<span class="category">Networking</span>
+
+</div>
+
+
+<!-- STEP 15 -->
+
+<div class="step" data-category="Networking">
+
+<div class="step-number">STEP 15</div>
+
+<div class="question">
+What is a router?
+</div>
+
+<div class="answer">
+<strong>Answer:</strong>
+A router forwards network traffic between
+different networks.
+</div>
+
+<span class="category">Networking</span>
+
+</div>
+
+
+<!-- STEP 16 -->
+
+<div class="step" data-category="Networking">
+
+<div class="step-number">STEP 16</div>
+
+<div class="question">
+What is a switch?
+</div>
+
+<div class="answer">
+<strong>Answer:</strong>
+A switch connects devices within a local network
+and forwards traffic to the appropriate device.
+</div>
+
+<span class="category">Networking</span>
+
+</div>
+
+
+<!-- STEP 17 -->
+
+<div class="step" data-category="Networking">
+
+<div class="step-number">STEP 17</div>
+
+<div class="question">
+What is DNS?
+</div>
+
+<div class="answer">
+<strong>Answer:</strong>
+DNS translates human-readable domain names
+into IP addresses.
+</div>
+
+<span class="category">Networking</span>
+
+</div>
+
+
+<!-- STEP 18 -->
+
+<div class="step" data-category="Networking">
+
+<div class="step-number">STEP 18</div>
+
+<div class="question">
+What is HTTP?
+</div>
+
+<div class="answer">
+<strong>Answer:</strong>
+HTTP is a protocol used for communication
+between browsers and web servers.
+</div>
+
+<span class="category">Networking</span>
+
+</div>
+
+
+<!-- STEP 19 -->
+
+<div class="step" data-category="Networking">
+
+<div class="step-number">STEP 19</div>
+
+<div class="question">
+What is HTTPS?
+</div>
+
+<div class="answer">
+<strong>Answer:</strong>
+HTTPS protects HTTP communication using
+TLS encryption.
+</div>
+
+<span class="category">Networking</span>
+
+</div>
+
+
+<!-- STEP 20 -->
+
+<div class="step" data-category="Computer">
+
+<div class="step-number">STEP 20</div>
+
+<div class="question">
+What is a web browser?
+</div>
+
+<div class="answer">
+<strong>Answer:</strong>
+A web browser is software used to access
+and display websites.
+</div>
+
+<span class="category">Computer</span>
+
+</div>
+
+
+<!-- STEP 21 -->
+
+<div class="step" data-category="Security">
+
+<div class="step-number">STEP 21</div>
+
+<div class="question">
+What is cybersecurity?
+</div>
+
+<div class="answer">
+<strong>Answer:</strong>
+Cybersecurity is the practice of protecting
+systems, networks and information.
+</div>
+
+<span class="category">Security</span>
+
+</div>
+
+
+<!-- STEP 22 -->
+
+<div class="step" data-category="Security">
+
+<div class="step-number">STEP 22</div>
+
+<div class="question">
+What is ethical hacking?
+</div>
+
+<div class="answer">
+<strong>Answer:</strong>
+Ethical hacking is authorized security testing
+performed to identify vulnerabilities.
+</div>
+
+<span class="category">Security</span>
+
+</div>
+
+
+<!-- STEP 23 -->
+
+<div class="step" data-category="Security">
+
+<div class="step-number">STEP 23</div>
+
+<div class="question">
+What is a vulnerability?
+</div>
+
+<div class="answer">
+<strong>Answer:</strong>
+A vulnerability is a weakness in a system
+that could potentially be exploited.
+</div>
+
+<span class="category">Security</span>
+
+</div>
+
+
+<!-- STEP 24 -->
+
+<div class="step" data-category="Security">
+
+<div class="step-number">STEP 24</div>
+
+<div class="question">
+What is malware?
+</div>
+
+<div class="answer">
+<strong>Answer:</strong>
+Malware is malicious software designed
+to cause harm or unauthorized access.
+</div>
+
+<span class="category">Security</span>
+
+</div>
+
+
+<!-- STEP 25 -->
+
+<div class="step" data-category="Security">
+
+<div class="step-number">STEP 25</div>
+
+<div class="question">
+What is phishing?
+</div>
+
+<div class="answer">
+<strong>Answer:</strong>
+Phishing is a social-engineering technique
+used to trick people into revealing information
+or performing unsafe actions.
+</div>
+
+<span class="category">Security</span>
+
+</div>
+
+
+<!-- STEP 26 -->
+
+<div class="step" data-category="Security">
+
+<div class="step-number">STEP 26</div>
+
+<div class="question">
+What is authentication?
+</div>
+
+<div class="answer">
+<strong>Answer:</strong>
+Authentication verifies the identity
+of a user or system.
+</div>
+
+<span class="category">Security</span>
+
+</div>
+
+
+<!-- STEP 27 -->
+
+<div class="step" data-category="Security">
+
+<div class="step-number">STEP 27</div>
+
+<div class="question">
+What is authorization?
+</div>
+
+<div class="answer">
+<strong>Answer:</strong>
+Authorization determines what an authenticated
+user is allowed to access.
+</div>
+
+<span class="category">Security</span>
+
+</div>
+
+
+<!-- STEP 28 -->
+
+<div class="step" data-category="Security">
+
+<div class="step-number">STEP 28</div>
+
+<div class="question">
+What is encryption?
+</div>
+
+<div class="answer">
+<strong>Answer:</strong>
+Encryption transforms readable information
+into protected ciphertext.
+</div>
+
+<span class="category">Security</span>
+
+</div>
+
+
+<!-- STEP 29 -->
+
+<div class="step" data-category="Security">
+
+<div class="step-number">STEP 29</div>
+
+<div class="question">
+What is two-factor authentication?
+</div>
+
+<div class="answer">
+<strong>Answer:</strong>
+2FA adds another verification step
+in addition to a password.
+</div>
+
+<span class="category">Security</span>
+
+</div>
+
+
+<!-- STEP 30 -->
+
+<div class="step" data-category="Security">
+
+<div class="step-number">STEP 30</div>
+
+<div class="question">
+What is a firewall?
+</div>
+
+<div class="answer">
+<strong>Answer:</strong>
+A firewall controls network traffic according
+to security rules.
+</div>
+
+<span class="category">Security</span>
+
+</div>
+
+
+<!-- 31-100 -->
+
+<div class="step" data-category="Linux">
+<div class="step-number">STEP 31</div>
+<div class="question">What is Kali Linux?</div>
+<div class="answer"><strong>Answer:</strong> Kali Linux is a Linux distribution designed for security testing and digital forensics.</div>
+<span class="category">Linux</span>
+</div>
+
+<div class="step" data-category="Linux">
+<div class="step-number">STEP 32</div>
+<div class="question">Why is Kali Linux used in cybersecurity?</div>
+<div class="answer"><strong>Answer:</strong> It provides many security-testing and analysis tools in one environment.</div>
+<span class="category">Linux</span>
+</div>
+
+<div class="step" data-category="Computer">
+<div class="step-number">STEP 33</div>
+<div class="question">What is RAM?</div>
+<div class="answer"><strong>Answer:</strong> RAM is temporary memory used by a computer while programs are running.</div>
+<span class="category">Computer</span>
+</div>
+
+<div class="step" data-category="Computer">
+<div class="step-number">STEP 34</div>
+<div class="question">What is a CPU?</div>
+<div class="answer"><strong>Answer:</strong> The CPU executes instructions and performs calculations for a computer.</div>
+<span class="category">Computer</span>
+</div>
+
+<div class="step" data-category="Computer">
+<div class="step-number">STEP 35</div>
+<div class="question">What is storage?</div>
+<div class="answer"><strong>Answer:</strong> Storage keeps data for longer periods, such as on SSDs or hard drives.</div>
+<span class="category">Computer</span>
+</div>
+
+<div class="step" data-category="Networking">
+<div class="step-number">STEP 36</div>
+<div class="question">What is TCP?</div>
+<div class="answer"><strong>Answer:</strong> TCP provides reliable and ordered delivery of data.</div>
+<span class="category">Networking</span>
+</div>
+
+<div class="step" data-category="Networking">
+<div class="step-number">STEP 37</div>
+<div class="question">What is UDP?</div>
+<div class="answer"><strong>Answer:</strong> UDP is a connectionless transport protocol with low overhead.</div>
+<span class="category">Networking</span>
+</div>
+
+<div class="step" data-category="Networking">
+<div class="step-number">STEP 38</div>
+<div class="question">What is a network port?</div>
+<div class="answer"><strong>Answer:</strong> A port is a logical endpoint used by network services.</div>
+<span class="category">Networking</span>
+</div>
+
+<div class="step" data-category="Security">
+<div class="step-number">STEP 39</div>
+<div class="question">What is a security patch?</div>
+<div class="answer"><strong>Answer:</strong> A security patch fixes known security problems in software.</div>
+<span class="category">Security</span>
+</div>
+
+<div class="step" data-category="Security">
+<div class="step-number">STEP 40</div>
+<div class="question">Why should software be updated?</div>
+<div class="answer"><strong>Answer:</strong> Updates can fix vulnerabilities, bugs and compatibility problems.</div>
+<span class="category">Security</span>
+</div>
+
+<div class="step" data-category="Security">
+<div class="step-number">STEP 41</div>
+<div class="question">What is a backup?</div>
+<div class="answer"><strong>Answer:</strong> A backup is a separate copy of important data used for recovery.</div>
+<span class="category">Security</span>
+</div>
+
+<div class="step" data-category="Security">
+<div class="step-number">STEP 42</div>
+<div class="question">What is least privilege?</div>
+<div class="answer"><strong>Answer:</strong> Users should receive only the permissions they need.</div>
+<span class="category">Security</span>
+</div>
+
+<div class="step" data-category="Security">
+<div class="step-number">STEP 43</div>
+<div class="question">What does CIA mean in cybersecurity?</div>
+<div class="answer"><strong>Answer:</strong> CIA means Confidentiality, Integrity and Availability.</div>
+<span class="category">Security</span>
+</div>
+
+<div class="step" data-category="Security">
+<div class="step-number">STEP 44</div>
+<div class="question">What is confidentiality?</div>
+<div class="answer"><strong>Answer:</strong> Confidentiality protects information from unauthorized access.</div>
+<span class="category">Security</span>
+</div>
+
+<div class="step" data-category="Security">
+<div class="step-number">STEP 45</div>
+<div class="question">What is integrity?</div>
+<div class="answer"><strong>Answer:</strong> Integrity protects information from unauthorized modification.</div>
+<span class="category">Security</span>
+</div>
+
+<div class="step" data-category="Security">
+<div class="step-number">STEP 46</div>
+<div class="question">What is availability?</div>
+<div class="answer"><strong>Answer:</strong> Availability means authorized users can access resources when needed.</div>
+<span class="category">Security</span>
+</div>
+
+<div class="step" data-category="Networking">
+<div class="step-number">STEP 47</div>
+<div class="question">What is bandwidth?</div>
+<div class="answer"><strong>Answer:</strong> Bandwidth describes the capacity of a network connection.</div>
+<span class="category">Networking</span>
+</div>
+
+<div class="step" data-category="Networking">
+<div class="step-number">STEP 48</div>
+<div class="question">What is latency?</div>
+<div class="answer"><strong>Answer:</strong> Latency is the delay involved in transmitting data.</div>
+<span class="category">Networking</span>
+</div>
+
+<div class="step" data-category="Networking">
+<div class="step-number">STEP 49</div>
+<div class="question">What is Wi-Fi?</div>
+<div class="answer"><strong>Answer:</strong> Wi-Fi allows devices to connect to networks wirelessly.</div>
+<span class="category">Networking</span>
+</div>
+
+<div class="step" data-category="Networking">
+<div class="step-number">STEP 50</div>
+<div class="question">What is Bluetooth?</div>
+<div class="answer"><strong>Answer:</strong> Bluetooth provides short-range wireless communication.</div>
+<span class="category">Networking</span>
+</div>
+
+<div class="step" data-category="Security">
+<div class="step-number">STEP 51</div>
+<div class="question">What is a VPN?</div>
+<div class="answer"><strong>Answer:</strong> A VPN creates an encrypted connection between a device and a VPN service.</div>
+<span class="category">Security</span>
+</div>
+
+<div class="step" data-category="Security">
+<div class="step-number">STEP 52</div>
+<div class="question">What is social engineering?</div>
+<div class="answer"><strong>Answer:</strong> Social engineering manipulates people into revealing information or taking actions.</div>
+<span class="category">Security</span>
+</div>
+
+<div class="step" data-category="Security">
+<div class="step-number">STEP 53</div>
+<div class="question">What is ransomware?</div>
+<div class="answer"><strong>Answer:</strong> Ransomware is malware that can prevent access to data or systems.</div>
+<span class="category">Security</span>
+</div>
+
+<div class="step" data-category="Security">
+<div class="step-number">STEP 54</div>
+<div class="question">What is spyware?</div>
+<div class="answer"><strong>Answer:</strong> Spyware is software designed to secretly collect information.</div>
+<span class="category">Security</span>
+</div>
+
+<div class="step" data-category="Security">
+<div class="step-number">STEP 55</div>
+<div class="question">What is antivirus software?</div>
+<div class="answer"><strong>Answer:</strong> Antivirus software helps detect and block malicious software.</div>
+<span class="category">Security</span>
+</div>
+
+<div class="step" data-category="Security">
+<div class="step-number">STEP 56</div>
+<div class="question">What is a security log?</div>
+<div class="answer"><strong>Answer:</strong> A security log records events that can help identify suspicious activity.</div>
+<span class="category">Security</span>
+</div>
+
+<div class="step" data-category="Security">
+<div class="step-number">STEP 57</div>
+<div class="question">What is incident response?</div>
+<div class="answer"><strong>Answer:</strong> Incident response is the process of handling security incidents.</div>
+<span class="category">Security</span>
+</div>
+
+<div class="step" data-category="Security">
+<div class="step-number">STEP 58</div>
+<div class="question">What is digital forensics?</div>
+<div class="answer"><strong>Answer:</strong> Digital forensics examines digital evidence in a structured manner.</div>
+<span class="category">Security</span>
+</div>
+
+<div class="step" data-category="Security">
+<div class="step-number">STEP 59</div>
+<div class="question">What is access control?</div>
+<div class="answer"><strong>Answer:</strong> Access control determines who or what can access resources.</div>
+<span class="category">Security</span>
+</div>
+
+<div class="step" data-category="Security">
+<div class="step-number">STEP 60</div>
+<div class="question">What is multi-factor authentication?</div>
+<div class="answer"><strong>Answer:</strong> MFA uses two or more different types of verification.</div>
+<span class="category">Security</span>
+</div>
+
+<div class="step" data-category="Security">
+<div class="step-number">STEP 61</div>
+<div class="question">What is a threat?</div>
+<div class="answer"><strong>Answer:</strong> A threat is something capable of causing harm to a system or its information.</div>
+<span class="category">Security</span>
+</div>
+
+<div class="step" data-category="Security">
+<div class="step-number">STEP 62</div>
+<div class="question">What is risk?</div>
+<div class="answer"><strong>Answer:</strong> Risk is the possibility that a threat may exploit a vulnerability and cause harm.</div>
+<span class="category">Security</span>
+</div>
+
+<div class="step" data-category="Security">
+<div class="step-number">STEP 63</div>
+<div class="question">What is a security policy?</div>
+<div class="answer"><strong>Answer:</strong> A security policy defines rules for protecting systems and information.</div>
+<span class="category">Security</span>
+</div>
+
+<div class="step" data-category="Linux">
+<div class="step-number">STEP 64</div>
+<div class="question">What is an open-source operating system?</div>
+<div class="answer"><strong>Answer:</strong> It is an operating system whose source code is available under its license terms.</div>
+<span class="category">Linux</span>
+</div>
+
+<div class="step" data-category="Linux">
+<div class="step-number">STEP 65</div>
+<div class="question">What is a Linux package?</div>
+<div class="answer"><strong>Answer:</strong> A package contains software and information needed to install or manage it.</div>
+<span class="category">Linux</span>
+</div>
+
+<div class="step" data-category="Linux">
+<div class="step-number">STEP 66</div>
+<div class="question">What is a Linux directory?</div>
+<div class="answer"><strong>Answer:</strong> A directory is a folder used to organize files and other directories.</div>
+<span class="category">Linux</span>
+</div>
+
+<div class="step" data-category="Linux">
+<div class="step-number">STEP 67</div>
+<div class="question">What is a file permission?</div>
+<div class="answer"><strong>Answer:</strong> File permissions control who can read, write or execute a file.</div>
+<span class="category">Linux</span>
+</div>
+
+<div class="step" data-category="Computer">
+<div class="step-number">STEP 68</div>
+<div class="question">What is a file system?</div>
+<div class="answer"><strong>Answer:</strong> A file system organizes and manages files on storage devices.</div>
+<span class="category">Computer</span>
+</div>
+
+<div class="step" data-category="Computer">
+<div class="step-number">STEP 69</div>
+<div class="question">What is an application?</div>
+<div class="answer"><strong>Answer:</strong> An application is software designed to perform a particular task.</div>
+<span class="category">Computer</span>
+</div>
+
+<div class="step" data-category="Computer">
+<div class="step-number">STEP 70</div>
+<div class="question">What is a process?</div>
+<div class="answer"><strong>Answer:</strong> A process is a running instance of a program.</div>
+<span class="category">Computer</span>
+</div>
+
+<div class="step" data-category="Networking">
+<div class="step-number">STEP 71</div>
+<div class="question">What is localhost?</div>
+<div class="answer"><strong>Answer:</strong> Localhost refers to the device itself, commonly represented by 127.0.0.1 in IPv4.</div>
+<span class="category">Networking</span>
+</div>
+
+<div class="step" data-category="Networking">
+<div class="step-number">STEP 72</div>
+<div class="question">What is a URL?</div>
+<div class="answer"><strong>Answer:</strong> A URL identifies the location of a resource on the web.</div>
+<span class="category">Networking</span>
+</div>
+
+<div class="step" data-category="Networking">
+<div class="step-number">STEP 73</div>
+<div class="question">What is a web server?</div>
+<div class="answer"><strong>Answer:</strong> A web server provides web content to clients such as browsers.</div>
+<span class="category">Networking</span>
+</div>
+
+<div class="step" data-category="Security">
+<div class="step-number">STEP 74</div>
+<div class="question">What is responsible disclosure?</div>
+<div class="answer"><strong>Answer:</strong> It means reporting security vulnerabilities to the appropriate owner safely.</div>
+<span class="category">Security</span>
+</div>
+
+<div class="step" data-category="Security">
+<div class="step-number">STEP 75</div>
+<div class="question">What is a bug bounty program?</div>
+<div class="answer"><strong>Answer:</strong> It allows authorized researchers to report vulnerabilities under defined rules.</div>
+<span class="category">Security</span>
+</div>
+
+<div class="step" data-category="Security">
+<div class="step-number">STEP 76</div>
+<div class="question">What is a cybersecurity lab?</div>
+<div class="answer"><strong>Answer:</strong> A controlled environment where cybersecurity concepts can be practiced safely.</div>
+<span class="category">Security</span>
+</div>
+
+<div class="step" data-category="Security">
+<div class="step-number">STEP 77</div>
+<div class="question">What is secure browsing?</div>
+<div class="answer"><strong>Answer:</strong> Secure browsing includes using trusted websites and avoiding suspicious links.</div>
+<span class="category">Security</span>
+</div>
+
+<div class="step" data-category="Security">
+<div class="step-number">STEP 78</div>
+<div class="question">Why should passwords be unique?</div>
+<div class="answer"><strong>Answer:</strong> Unique passwords reduce the risk of multiple accounts being affected by one leaked password.</div>
+<span class="category">Security</span>
+</div>
+
+<div class="step" data-category="Security">
+<div class="step-number">STEP 79</div>
+<div class="question">What is input validation?</div>
+<div class="answer"><strong>Answer:</strong> Input validation checks whether received data matches expected rules.</div>
+<span class="category">Security</span>
+</div>
+
+<div class="step" data-category="Security">
+<div class="step-number">STEP 80</div>
+<div class="question">Why is input validation important?</div>
+<div class="answer"><strong>Answer:</strong> Proper validation can reduce security problems caused by unexpected input.</div>
+<span class="category">Security</span>
+</div>
+
+<div class="step" data-category="Computer">
+<div class="step-number">STEP 81</div>
+<div class="question">What is HTML?</div>
+<div class="answer"><strong>Answer:</strong> HTML is used to structure content on web pages.</div>
+<span class="category">Computer</span>
+</div>
+
+<div class="step" data-category="Computer">
+<div class="step-number">STEP 82</div>
+<div class="question">What is CSS?</div>
+<div class="answer"><strong>Answer:</strong> CSS controls the appearance and layout of web pages.</div>
+<span class="category">Computer</span>
+</div>
+
+<div class="step" data-category="Computer">
+<div class="step-number">STEP 83</div>
+<div class="question">What is JavaScript?</div>
+<div class="answer"><strong>Answer:</strong> JavaScript adds interactive behavior to websites.</div>
+<span class="category">Computer</span>
+</div>
+
+<div class="step" data-category="Computer">
+<div class="step-number">STEP 84</div>
+<div class="question">What is an API?</div>
+<div class="answer"><strong>Answer:</strong> An API provides a defined way for software systems to communicate.</div>
+<span class="category">Computer</span>
+</div>
+
+<div class="step" data-category="Computer">
+<div class="step-number">STEP 85</div>
+<div class="question">What is Git?</div>
+<div class="answer"><strong>Answer:</strong> Git is a version-control system used to track changes in code.</div>
+<span class="category">Computer</span>
+</div>
+
+<div class="step" data-category="Computer">
+<div class="step-number">STEP 86</div>
+<div class="question">What is GitHub?</div>
+<div class="answer"><strong>Answer:</strong> GitHub is a platform for hosting and collaborating on software projects.</div>
+<span class="category">Computer</span>
+</div>
+
+<div class="step" data-category="Security">
+<div class="step-number">STEP 87</div>
+<div class="question">What is a digital signature?</div>
+<div class="answer"><strong>Answer:</strong> A digital signature helps verify authenticity and integrity of digital data.</div>
+<span class="category">Security</span>
+</div>
+
+<div class="step" data-category="Security">
+<div class="step-number">STEP 88</div>
+<div class="question">What is public-key cryptography?</div>
+<div class="answer"><strong>Answer:</strong> It uses a pair of mathematically related keys for cryptographic operations.</div>
+<span class="category">Security</span>
+</div>
+
+<div class="step" data-category="Security">
+<div class="step-number">STEP 89</div>
+<div class="question">What is hashing?</div>
+<div class="answer"><strong>Answer:</strong> Hashing converts data into a fixed-length value using a hash function.</div>
+<span class="category">Security</span>
+</div>
+
+<div class="step" data-category="Security">
+<div class="step-number">STEP 90</div>
+<div class="question">What is TLS?</div>
+<div class="answer"><strong>Answer:</strong> TLS helps protect data transmitted over networks.</div>
+<span class="category">Security</span>
+</div>
+
+<div class="step" data-category="Security">
+<div class="step-number">STEP 91</div>
+<div class="question">What is endpoint security?</div>
+<div class="answer"><strong>Answer:</strong> Endpoint security protects devices such as computers and phones.</div>
+<span class="category">Security</span>
+</div>
+
+<div class="step" data-category="Security">
+<div class="step-number">STEP 92</div>
+<div class="question">What is access logging?</div>
+<div class="answer"><strong>Answer:</strong> Access logging records attempts and events related to resource access.</div>
+<span class="category">Security</span>
+</div>
+
+<div class="step" data-category="Security">
+<div class="step-number">STEP 93</div>
+<div class="question">What is security monitoring?</div>
+<div class="answer"><strong>Answer:</strong> Security monitoring observes systems for suspicious or unusual activity.</div>
+<span class="category">Security</span>
+</div>
+
+<div class="step" data-category="Security">
+<div class="step-number">STEP 94</div>
+<div class="question">What is risk assessment?</div>
+<div class="answer"><strong>Answer:</strong> Risk assessment identifies threats, vulnerabilities and potential impact.</div>
+<span class="category">Security</span>
+</div>
+
+<div class="step" data-category="Security">
+<div class="step-number">STEP 95</div>
+<div class="question">What is defense in depth?</div>
+<div class="answer"><strong>Answer:</strong> Defense in depth uses multiple layers of security controls.</div>
+<span class="category">Security</span>
+</div>
+
+<div class="step" data-category="Security">
+<div class="step-number">STEP 96</div>
+<div class="question">What is a security incident?</div>
+<div class="answer"><strong>Answer:</strong> A security incident is an event that may compromise security.</div>
+<span class="category">Security</span>
+</div>
+
+<div class="step" data-category="Security">
+<div class="step-number">STEP 97</div>
+<div class="question">What is incident containment?</div>
+<div class="answer"><strong>Answer:</strong> Containment limits the impact and spread of a security incident.</div>
+<span class="category">Security</span>
+</div>
+
+<div class="step" data-category="Security">
+<div class="step-number">STEP 98</div>
+<div class="question">What is recovery?</div>
+<div class="answer"><strong>Answer:</strong> Recovery restores affected systems and services after an incident.</div>
+<span class="category">Security</span>
+</div>
+
+<div class="step" data-category="Security">
+<div class="step-number">STEP 99</div>
+<div class="question">What is security awareness?</div>
+<div class="answer"><strong>Answer:</strong> Security awareness teaches people how to recognize and avoid security risks.</div>
+<span class="category">Security</span>
+</div>
+
+<div class="step" data-category="Security">
+<div class="step-number">STEP 100</div>
+<div class="question">What is the most important rule of ethical hacking?</div>
+<div class="answer">
+<strong>Answer:</strong>
+Always have clear permission before testing a system.
+Only practice on systems you own or are authorized to test.
+</div>
+<span class="category">Security</span>
+</div>
+
+</div>
+
+
+<!-- MCQ -->
+
+<div class="section-title">
+
+<h2>📝 20 MCQ Challenge</h2>
+
+<p>Select an answer to test yourself.</p>
+
+</div>
+
+
+<div id="mcqContainer">
+
+
+<div class="mcq">
+
+<h3>1. Which one is an operating system?</h3>
+
+<button class="option" onclick="answer(this,true)">A. Linux</button>
+<button class="option" onclick="answer(this,false)">B. HTML</button>
+<button class="option" onclick="answer(this,false)">C. HTTP</button>
+<button class="option" onclick="answer(this,false)">D. DNS</button>
+
+<div class="result"></div>
+
+</div>
+
+
+<div class="mcq">
+
+<h3>2. What does DNS mainly do?</h3>
+
+<button class="option" onclick="answer(this,false)">A. Stores passwords</button>
+<button class="option" onclick="answer(this,true)">B. Translates domain names to IP addresses</button>
+<button class="option" onclick="answer(this,false)">C. Creates RAM</button>
+<button class="option" onclick="answer(this,false)">D. Edits photos</button>
+
+<div class="result"></div>
+
+</div>
+
+
+<div class="mcq">
+
+<h3>3. Which protocol is used for secure web communication?</h3>
+
+<button class="option" onclick="answer(this,true)">A. HTTPS</button>
+<button class="option" onclick="answer(this,false)">B. FTP</button>
+<button class="option" onclick="answer(this,false)">C. TXT</button>
+<button class="option" onclick="answer(this,false)">D. JPG</button>
+
+<div class="result"></div>
+
+</div>
+
+
+<div class="mcq">
+
+<h3>4. What does IP stand for?</h3>
+
+<button class="option" onclick="answer(this,true)">A. Internet Protocol</button>
+<button class="option" onclick="answer(this,false)">B. Internal Program</button>
+<button class="option" onclick="answer(this,false)">C. Internet Program</button>
+<button class="option" onclick="answer(this,false)">D. Input Process</button>
+
+<div class="result"></div>
+
+</div>
+
+
+<div class="mcq">
+
+<h3>5. Which command shows the current directory?</h3>
+
+<button class="option" onclick="answer(this,false)">A. ls</button>
+<button class="option" onclick="answer(this,true)">B. pwd</button>
+<button class="option" onclick="answer(this,false)">C. cd</button>
+<button class="option" onclick="answer(this,false)">D. mkdir</button>
+
+<div class="result"></div>
+
+</div>
+
+
+<div class="mcq">
+
+<h3>6. Which command lists files?</h3>
+
+<button class="option" onclick="answer(this,true)">A. ls</button>
+<button class="option" onclick="answer(this,false)">B. pwd</button>
+<button class="option" onclick="answer(this,false)">C. cd</button>
+<button class="option" onclick="answer(this,false)">D. clear</button>
+
+<div class="result"></div>
+
+</div>
+
+
+<div class="mcq">
+
+<h3>7. Kali Linux is commonly used for?</h3>
+
+<button class="option" onclick="answer(this,false)">A. Music only</button>
+<button class="option" onclick="answer(this,true)">B. Security testing</button>
+<button class="option" onclick="answer(this,false)">C. Drawing</button>
+<button class="option" onclick="answer(this,false)">D. Gaming only</button>
+
+<div class="result"></div>
+
+</div>
+
+
+<div class="mcq">
+
+<h3>8. What does VPN stand for?</h3>
+
+<button class="option" onclick="answer(this,true)">A. Virtual Private Network</button>
+<button class="option" onclick="answer(this,false)">B. Very Public Network</button>
+<button class="option" onclick="answer(this,false)">C. Virtual Program Node</button>
+<button class="option" onclick="answer(this,false)">D. Verified Private Node</button>
+
+<div class="result"></div>
+
+</div>
+
+
+<div class="mcq">
+
+<h3>9. Which is a transport protocol?</h3>
+
+<button class="option" onclick="answer(this,true)">A. TCP</button>
+<button class="option" onclick="answer(this,false)">B. HTML</button>
+<button class="option" onclick="answer(this,false)">C. CSS</button>
+<button class="option" onclick="answer(this,false)">D. JPG</button>
+
+<div class="result"></div>
+
+</div>
+
+
+<div class="mcq">
+
+<h3>10. What does HTTPS help provide?</h3>
+
+<button class="option" onclick="answer(this,true)">A. Protected web communication</button>
+<button class="option" onclick="answer(this,false)">B. More RAM</button>
+<button class="option" onclick="answer(this,false)">C. Faster CPU</button>
+<button class="option" onclick="answer(this,false)">D. Free storage</button>
+
+<div class="result"></div>
+
+</div>
+
+
+<div class="mcq">
+
+<h3>11. What is a firewall?</h3>
+
+<button class="option" onclick="answer(this,true)">A. Network traffic control system</button>
+<button class="option" onclick="answer(this,false)">B. Browser</button>
+<button class="option" onclick="answer(this,false)">C. Programming language</button>
+<button class="option" onclick="answer(this,false)">D. Database</button>
+
+<div class="result"></div>
+
+</div>
+
+
+<div class="mcq">
+
+<h3>12. What is phishing?</h3>
+
+<button class="option" onclick="answer(this,true)">A. Social engineering technique</button>
+<button class="option" onclick="answer(this,false)">B. Programming language</button>
+<button class="option" onclick="answer(this,false)">C. CPU type</button>
+<button class="option" onclick="answer(this,false)">D. Cable</button>
+
+<div class="result"></div>
+
+</div>
+
+
+<div class="mcq">
+
+<h3>13. What does 2FA provide?</h3>
+
+<button class="option" onclick="answer(this,true)">A. Extra authentication security</button>
+<button class="option" onclick="answer(this,false)">B. More storage</button>
+<button class="option" onclick="answer(this,false)">C. Faster Internet</button>
+<button class="option" onclick="answer(this,false)">D. Better graphics</button>
+
+<div class="result"></div>
+
+</div>
+
+
+<div class="mcq">
+
+<h3>14. What is malware?</h3>
+
+<button class="option" onclick="answer(this,true)">A. Malicious software</button>
+<button class="option" onclick="answer(this,false)">B. Network cable</button>
+<button class="option" onclick="answer(this,false)">C. Browser</button>
+<button class="option" onclick="answer(this,false)">D. Monitor</button>
+
+<div class="result"></div>
+
+</div>
+
+
+<div class="mcq">
+
+<h3>15. What is encryption?</h3>
+
+<button class="option" onclick="answer(this,true)">A. Transforming data to protect it</button>
+<button class="option" onclick="answer(this,false)">B. Deleting data</button>
+<button class="option" onclick="answer(this,false)">C. Increasing RAM</button>
+<button class="option" onclick="answer(this,false)">D. Formatting</button>
+
+<div class="result"></div>
+
+</div>
+
+
+<div class="mcq">
+
+<h3>16. Which language structures web pages?</h3>
+
+<button class="option" onclick="answer(this,true)">A. HTML</button>
+<button class="option" onclick="answer(this,false)">B. CSS</button>
+<button class="option" onclick="answer(this,false)">C. SQL</button>
+<button class="option" onclick="answer(this,false)">D. Bash</button>
+
+<div class="result"></div>
+
+</div>
+
+
+<div class="mcq">
+
+<h3>17. Which language styles web pages?</h3>
+
+<button class="option" onclick="answer(this,false)">A. HTML</button>
+<button class="option" onclick="answer(this,true)">B. CSS</button>
+<button class="option" onclick="answer(this,false)">C. DNS</button>
+<button class="option" onclick="answer(this,false)">D. TCP</button>
+
+<div class="result"></div>
+
+</div>
+
+
+<div class="mcq">
+
+<h3>18. Which language adds interaction to websites?</h3>
+
+<button class="option" onclick="answer(this,true)">A. JavaScript</button>
+<button class="option" onclick="answer(this,false)">B. DNS</button>
+<button class="option" onclick="answer(this,false)">C. IP</button>
+<button class="option" onclick="answer(this,false)">D. TCP</button>
+
+<div class="result"></div>
+
+</div>
+
+
+<div class="mcq">
+
+<h3>19. What is the first rule of ethical hacking?</h3>
+
+<button class="option" onclick="answer(this,false)">A. Test anything</button>
+<button class="option" onclick="answer(this,true)">B. Have authorization</button>
+<button class="option" onclick="answer(this,false)">C. Share passwords</button>
+<button class="option" onclick="answer(this,false)">D. Disable security</button>
+
+<div class="result"></div>
+
+</div>
+
+
+<div class="mcq">
+
+<h3>20. What does CIA stand for?</h3>
+
+<button class="option" onclick="answer(this,true)">A. Confidentiality, Integrity, Availability</button>
+<button class="option" onclick="answer(this,false)">B. Computer, Internet, Access</button>
+<button class="option" onclick="answer(this,false)">C. Control, Internet, Authentication</button>
+<button class="option" onclick="answer(this,false)">D. Cyber, Information, Access</button>
+
+<div class="result"></div>
+
+</div>
+
+
+</div>
+
+
+<div class="score-box">
+
+<h2>Your MCQ Score</h2>
+
+<div id="score">0 / 20</div>
+
+<button class="restart" onclick="restartQuiz()">
+Restart Quiz
+</button>
+
+</div>
+
+
+</main>
+
+
+<footer>
+
+<p>🛡️ Cyber Learning Hub</p>
+
+<p>
+Developer Name:
+<strong>M.M.M.Meherab</strong>
+</p>
+
+<p>Learn • Practice • Stay Ethical</p>
+
+</footer>
+
+
+<script>
+
+/* DARK / LIGHT MODE */
+
+function toggleTheme(){
+
+    document.body.classList.toggle("light");
+
+    const button =
+    document.getElementById("themeButton");
+
+    if(document.body.classList.contains("light")){
+        button.innerHTML="☀️";
+    }else{
+        button.innerHTML="🌙";
+    }
+
+}
+
+
+/* SEARCH */
+
+function searchSteps(){
+
+    const search =
+    document.getElementById("searchBox")
+    .value.toLowerCase();
+
+    const steps =
+    document.querySelectorAll(".step");
+
+    steps.forEach(step=>{
+
+        const text =
+        step.innerText.toLowerCase();
+
+        if(text.includes(search)){
+            step.classList.remove("hidden");
+        }else{
+            step.classList.add("hidden");
+        }
+
+    });
+
+}
+
+
+/* CATEGORY FILTER */
+
+function filterCategory(category,button){
+
+    const steps =
+    document.querySelectorAll(".step");
+
+    document.querySelectorAll(".filter")
+    .forEach(btn=>{
+        btn.classList.remove("active");
+    });
+
+    button.classList.add("active");
+
+    steps.forEach(step=>{
+
+        if(
+            category==="all" ||
+            step.dataset.category===category
+        ){
+            step.classList.remove("hidden");
+        }else{
+            step.classList.add("hidden");
+        }
+
+    });
+
+}
+
+
+/* PROGRESS */
+
+let progress=0;
+
+const steps =
+document.querySelectorAll(".step");
+
+window.addEventListener("scroll",()=>{
+
+    const scrollTop =
+    window.scrollY;
+
+    const pageHeight =
+    document.documentElement.scrollHeight -
+    window.innerHeight;
+
+    if(pageHeight<=0)return;
+
+    const percent =
+    Math.round(
+        (scrollTop/pageHeight)*100
+    );
+
+    progress=Math.min(percent,100);
+
+    document.getElementById("progressBar")
+    .style.width=progress+"%";
+
+    const completed =
+    Math.round(progress);
+
+    document.getElementById("progressText")
+    .innerText=
+    completed+" / 100";
+
+});
+
+
+/* MCQ */
+
+let score=0;
+
+let answered=0;
+
+function answer(button,isCorrect){
+
+    const mcq =
+    button.parentElement;
+
+    const buttons =
+    mcq.querySelectorAll(".option");
+
+    const result =
+    mcq.querySelector(".result");
+
+    if(mcq.dataset.answered==="yes"){
+        return;
+    }
+
+    mcq.dataset.answered="yes";
+
+    buttons.forEach(btn=>{
+        btn.disabled=true;
+    });
+
+    if(isCorrect){
+
+        button.classList.add("correct");
+
+        result.innerHTML="✅ Correct!";
+
+        result.style.color=
+        "var(--accent)";
+
+        score++;
+
+    }else{
+
+        button.classList.add("wrong");
+
+        result.innerHTML=
+        "❌ Wrong answer.";
+
+        result.style.color=
+        "var(--wrong)";
+
+    }
+
+    answered++;
+
+    document.getElementById("score")
+    .innerText=
+    score+" / 20";
+
+}
+
+
+/* RESTART QUIZ */
+
+function restartQuiz(){
+
+    score=0;
+
+    answered=0;
+
+    document.getElementById("score")
+    .innerText="0 / 20";
+
+    const mcqs =
+    document.querySelectorAll(".mcq");
+
+    mcqs.forEach(mcq=>{
+
+        mcq.dataset.answered="";
+
+        const buttons =
+        mcq.querySelectorAll(".option");
+
+        buttons.forEach(button=>{
+
+            button.disabled=false;
+
+            button.classList.remove(
+                "correct",
+                "wrong"
+            );
+
+        });
+
+        const result =
+        mcq.querySelector(".result");
+
+        result.innerHTML="";
+
+    });
+
+}
+
+</script>
+
+</body>
+</html>
